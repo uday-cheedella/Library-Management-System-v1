@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .login-link, .admin_login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .admin_login-link {
+            text-align: right;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .admin_login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover, .admin_login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .admin_login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Log In</h1>
+        <div class="message">
+            <p class="error-message">{{ error_message }}</p>
+        </div>
+        <div class="admin_login-link">
+            <a href="/admin_login">Administrator Log In</a>
+        </div>
+        <form method="post">
+            <label for="login_username">Username:</label>
+            <input type="text" id="login_username" name="username" required autofocus>
+            <label for="login_password">Password:</label>
+            <input type="password" id="login_password" name="password" minlength="8" required>
+            <input type="submit" id="login_submit" name="Submit" value="Log In">
+        </form>
+        <div class="login-link">
+            Don't have an account? Sign Up <a href="/signup">here</a>
+        </div>
+    </div>
+</body>
+
+</html>

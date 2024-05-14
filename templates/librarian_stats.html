@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .admin_stats p {
+            margin: 10px 0;
+        }
+
+        .admin_stats p.success {
+            color: green;
+        }
+
+        .admin_stats p.error {
+            color: red;
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .statistics div {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .statistics div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .statistics div p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .statistics div h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a style="background-color: rgb(54, 86, 101);" href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div>
+        <h2>Statistics</h2>
+    </div>
+
+
+
+    <div class="admin_stats">
+        <div>
+            <p class="error"> {{ error_message }} </p>
+        </div>
+
+        <div>
+            <p class="success"> {{ success_message }} </p>
+        </div>
+        
+        <div class="statistics">
+
+            <div>
+                <p>User Count</p>
+                <br>
+                <h2>{{user_count}}</h2>
+            </div>
+
+            <div>
+                <p>Sections Count</p>
+                <br>
+                <h2>{{section_count}}</h2>
+            </div>
+
+            <div>
+                <p>Books Count</p>
+                <br>
+                <h2>{{books_count}}</h2>
+            </div>
+
+            <div>
+                <p>Pending Book Requests</p>
+                <br>
+                <h2>{{book_requests_count}}</h2>
+            </div>
+
+            <div>
+                <p>Books Issued</p>
+                <br>
+                <h2>{{book_issue_count}}</h2>
+            </div>
+
+            
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

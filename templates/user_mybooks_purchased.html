@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books: Purchased Books</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .user_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .user_navbar_items li {
+            display: inline;
+            float: left;
+        }
+
+        .user_navbar_items li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .user_navbar_items li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        .book_list-table,
+        .book_list-table td,
+        .book_list-table th {
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        .search_bar {
+            float: right;
+            margin-right: 2%;
+        }
+
+        .book_list {
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .error_message {
+            color: red;
+        }
+
+        .success_message {
+            color: green;
+        }
+
+        #positive_button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: rgb(24, 197, 24);
+        }
+
+        #negative_button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: rgb(247, 52, 52);
+        }
+
+        
+        .book_list a:hover {
+            text-decoration: underline;
+        }
+
+        #negative_button:hover {
+            text-decoration: underline;
+        }
+        
+        .book_list input[type="text"],
+        .book_list select,
+        .book_list input[type="submit"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .book_list input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .book_list input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+
+        .book_list .search_bar select {
+            padding: 8px;
+        }
+
+        .book_list .search_bar input[type="text"],
+        .book_list .search_bar input[type="submit"] {
+            padding: 6px;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <navbar class="user_navbar">
+        <ul class="user_navbar_items">
+            <li class="user_home_a"><a href="/users/{{ username }}/dashboard">User Dashboard</a></li>
+            <li><a style="background-color: rgb(54, 86, 101);" href="/users/{{ username }}/mybooks">My Books</a></li>
+            <li><a href="/users/{{ username }}/books">Books</a></li>
+            <li><a href="/users/{{username}}/change_password">Change password</a></li>
+            <li><a href="/notifications/{{username}}">Notifications({{notification_count}})</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="book_list">
+        <h2>My Books: Purchased Books</h2>
+        <h3>
+            <a href="/users/{{username}}/mybooks/issued_books">Issued Books</a> |
+            <a href="/users/{{username}}/mybooks/requested_books">Requested Books</a> |
+            <a style="font-size: 1.5rem; color: #007bff;" href="/users/{{username}}/mybooks/purchased_books">Purchased Books</a>
+        </h3>
+        <div>
+            <p class="error_message">{{ error_message }}</p>
+        </div>
+        <div>
+            <p class="success_message">{{ success_message }}</p>
+        </div>
+
+        <div class="search_bar">
+            <form>
+                <select id="search_select" name="search_select">
+                    <option value="book_name" {% if search_select=='book_name' %} selected {% endif %}>Book Name
+                    </option>
+                    <option value="book_author" {% if search_select=='book_author' %} selected {% endif %}>Author
+                    </option>
+                </select>
+                <label for="search_string"></label>
+                <input type="text" id="search_string" name="search_string" value="{{search_string}}">
+                <input type="submit" id="search_mybooks_submit" name="Submit" value="Search">
+            </form>
+        </div>
+
+        <table class="book_list-table">
+            <tr>
+                <th>SNo</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Section Name</th>
+                <th>Rating</th>
+                <th>Actions</th>
+                <th>Feedback</th>
+            </tr>
+            <!-- Purchased Book Details -->
+            {% for book in purchased_book_details %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/books/{{book.book_id}}/user_view/{{book.user_id}}?mybooks=purchased">{{ book.book_name
+                        }}</a>
+                </td>
+                <td>{{book.book_author}}</td>
+                <td>{{book.section_name}}</td>
+                <td>{{book.avg_rating}} ({{book.count}})</td>
+                <td><a
+                        href="/download_pdf/{{book.book_id}}?search_string={{search_string}}&search_select={{search_select}}">Download</a>
+                </td>
+                <td>
+                    <form
+                        action="/rating/{{book.book_id}}/{{username}}?search_string={{search_string}}&search_select={{search_select}}">
+                        <select id="mybooks_rating_select" name="mybooks_rating_select">
+                            <option value="select" {% if book.user_rating|string=='select' %} selected {% endif %}>
+                                select
+                            </option>
+                            <option value="1" {% if book.user_rating|string=='1' %} selected {% endif %}>1</option>
+                            <option value="2" {% if book.user_rating|string=='2' %} selected {% endif %}>2</option>
+                            <option value="3" {% if book.user_rating|string=='3' %} selected {% endif %}>3</option>
+                            <option value="4" {% if book.user_rating|string=='4' %} selected {% endif %}>4</option>
+                            <option value="5" {% if book.user_rating|string=='5' %} selected {% endif %}>5</option>
+                        </select>
+                        <input type="hidden" id="search_select" name="search_select" value="{{ search_select }}">
+                        <input type="hidden" id="search_string" name="search_string" value="{{ search_string }}">
+                        <input type="hidden" id="window" name="window" value="purchased">
+                        <input type="submit" id="mybooks_rating_submit" name="mybooks_rating_submit" value="Submit">
+                    </form>
+                </td>
+
+            </tr>
+            {%endfor%}
+
+        </table>
+    </div>
+</body>
+
+</html>

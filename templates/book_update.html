@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book: {{book_details.book_name}}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        textarea {
+            width: 80%;
+            height: 20rem;
+            margin: 5px;
+        }
+        
+        .book_update {
+            margin-top: 20px;
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #book_update_submit,
+        #book_cancel_edit {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #book_update_submit:hover,
+        #book_cancel_edit:hover {
+            background-color: #0056b3;
+        }
+
+        #book_name,
+        #book_author,
+        #book_price,
+        #book_content {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #book_name,
+        #book_author,
+        #book_price {
+            width: auto;
+        }
+
+        #book_name[readonly] {
+            cursor: not-allowed;
+        }
+
+        #negative_button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: rgb(247, 52, 52);
+        }
+
+        #negative_button:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="book_update">
+        <h1>Update Book: {{ book_details.book_name }}</h1>
+        <div>
+            <p style="color:red"> {{ error_message }} </p>
+        </div>
+        <div>
+            <p style="color:green"> {{ success_message }} </p>
+        </div>
+
+        <form method="post">
+            <label for="book_name">Name: </label>
+            <input type="text" id="book_name" name="book_name" value={{book_details.book_name}} required readonly>
+            <br><br>
+            <label for="book_author">Author: </label>
+            <input type="text" id="book_author" name="book_author" value={{book_details.book_author}} required>
+            <br><br>
+            <label for="book_price">Price of the Book(in Rs.): </label>
+            <input type="text" id="book_price" name="book_price" value={{book_details.book_price}} required>
+            <br><br>
+            <label for="book_content">Content: </label>
+            <br>
+            <!-- <input type="text" id = "book_content" name="book_content" required> -->
+            <textarea id="book_content" name="book_content">{{book_details.book_content}}</textarea>
+            <br><br>
+            <input type="submit" id="book_update_submit" name="Submit" value="Update Book">
+            <a id="negative_button" href="/sections/{{section_id}}" id="book_cancel_edit">Cancel Edit</a>
+        </form>
+    </div>
+</body>
+
+</html>

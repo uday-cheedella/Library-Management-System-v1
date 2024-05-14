@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .librarian_navbar_items li {
+            display: inline;
+            float: left;
+        }
+
+        .librarian_navbar_items li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .librarian_navbar_items li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        .book_create {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="submit"],
+        #negative_button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            height: 200px;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], #negative_button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #negative_button {
+            display: inline-block;
+            width: calc(100% - 20px);
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            background-color: rgb(247, 52, 52);
+        }
+
+        #negative_button:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="book_create">
+        <h1>Add a new Book</h1>
+        <div>
+            <p class="error-message">{{ error_message }}</p>
+        </div>
+
+        <form method="post">
+            <label for="book_name">Name:</label>
+            <input type="text" id="book_name" name="book_name" required>
+            <label for="book_author">Author:</label>
+            <input type="text" id="book_author" name="book_author" required>
+            <label for="book_price">Price of the Book (in Rs.):</label>
+            <input type="text" id="book_price" name="book_price" pattern="[0-9]*" title="Numeric only" required>
+            <label for="book_content">Content:</label>
+            <textarea id="book_content" name="book_content"></textarea>
+            <input type="submit" id="book_create_submit" name="Submit" value="Add Book">
+        </form>
+        <a id="negative_button" href="/sections/{{section_id}}" id="book_cancel_edit">Cancel</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sections: {{ section_name }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        .books-details-table,
+        td,
+        th {
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        .search_bar {
+            float: right;
+            margin-right: 2%;
+        }
+
+        .books_details {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 80%;
+        }
+
+        .books_details h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .books_details a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .books_details a:hover {
+            text-decoration: underline;
+        }
+
+        
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #eaeaeab7;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+       
+        
+        #negative_button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: rgb(247, 52, 52);
+        }
+
+        #negative_button:hover {
+            text-decoration: underline;
+        }
+        .books_details input[type="text"],
+        .books_details select,
+        .books_details input[type="submit"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .books_details input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .books_details input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .books_details p {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .books_details p.success_message {
+            color: green;
+        }
+
+        .books_details .search_bar select {
+            padding: 8px;
+        }
+
+        .books_details .search_bar input[type="text"],
+        .books_details .search_bar input[type="submit"] {
+            padding: 6px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="books_details">
+        <div>
+            <p style="color:red">{{ error_message }}</p>
+        </div>
+        <div>
+            <p style="color:green">{{ success_message }}</p>
+        </div>
+        <a href="/sections"><strong>
+                <</strong> Go Back</a>
+        <br>
+        <h1>{{ section_name }}: Books list</h1>
+
+        <div class="search_bar">
+            <form>
+                <label for="search_select">Search Books:</label>
+                <select id="search_select" name="search_select">
+                    <option value="book_name" {% if search_select=='book_name' %} selected {% endif %}>Book Name
+                    </option>
+                    <option value="book_author" {% if search_select=='book_author' %} selected {% endif %}>Author
+                    </option>
+                </select>
+                <label for="search_string"></label>
+                <input type="text" id="search_string" name="search_string" value="{{ search_string }}">
+                <input type="submit" id="search_mybooks_submit" name="Submit" value="Search">
+            </form>
+        </div>
+        <br><br>
+        <table>
+            <tr>
+                <th>SNo</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Rating</th>
+                <th>Price of the Book</th>
+                <th>Actions</th>
+                <th>Move to another Section</th>
+            </tr>
+            {% for book in books_details %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/books/{{ book.book_id }}/librarian_view">{{ book.book_name }}</a></td>
+                <td>{{ book.book_author }}</td>
+                <td>{{book.avg_rating}} ({{book.count}})</td>
+                <td>Rs. {{ book.book_price }}/-</td>
+                <td>
+                    <a href="/books/{{ book.book_id }}/update">Update</a> |
+                    <a id="negative_button"
+                        href="/books/{{ book.book_id }}/delete?search_string={{ search_string }}&search_select={{ search_select }}">Delete</a>
+                </td>
+                <td>
+                    <form
+                        action="/move_to_another_section/{{ book.book_id }}/{{ book.section_id }}?search_string={{ search_string }}&search_select={{ search_select }}">
+                        <select id="section_list_select" name="section_list_select">
+                            {% for section in section_list %}
+                            <option value="{{ section.section_id }}" {% if section.section_id|string==section_id %}
+                                selected {% endif %}>{{ section.section_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" id="section_move_submit" name="Submit" value="Move">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <a href="/sections/{{ section_id }}/books/create">+ Add a Book</a>
+    </div>
+</body>
+
+</html>

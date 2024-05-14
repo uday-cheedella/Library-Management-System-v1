@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books: {{ book_details.book_name }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        .books-details-table,
+        td,
+        th {
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 50%;
+            margin: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .book_details {
+            margin-top: 20px;
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .book_details p {
+            margin: 5px 0;
+        }
+
+        .book_details a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .book_details a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="book_details">
+        <br>
+        <a href="/sections/{{section_id}}"><strong>
+                <</strong> Go Back to Section</a>
+        <br>
+        <br>
+        <p><strong>Title: </strong>{{book_details.book_name}}</p>
+        <p><strong>Author: </strong>{{book_details.book_author}}</p>
+        <h4>Content: </h4>
+        <!-- <p> {{book_details.book_content}} </p> -->
+        <textarea id="book_content" name="book_content" rows="20">{{book_details.book_content}}</textarea>
+
+    </div>
+</body>
+
+</html>

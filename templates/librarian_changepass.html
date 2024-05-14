@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change password</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .admin_change_pass {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin_change_pass label {
+            margin-right: 10px;
+        }
+
+        .admin_change_pass input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        .admin_change_pass input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .admin_change_pass input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .admin_change_pass p {
+            margin: 10px 0;
+        }
+
+        .admin_change_pass p.success {
+            color: green;
+        }
+
+        .admin_change_pass p.error {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a style="background-color: rgb(54, 86, 101);" href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div>
+        <h2>Change Admin Password</h2>
+    </div>
+
+    
+
+    <div class="admin_change_pass">
+        <div>
+            <p class="error"> {{ error_message }} </p>
+        </div>
+        
+        
+        <div>
+            <p class="success"> {{ success_message }} </p>
+        </div>
+        <form method="post">
+            <label for="admin_new_password">New Password: </label>
+            <input type="password" id="admin_new_password" name="new_password" minlength="8" required autofocus>
+            <br><br>
+            <label for="admin_confirm_new_password">Confirm Password: </label>
+            <input type="password" id="admin_confirm_new_password" name="confirm_new_password" minlength="8" required>
+            <br><br>
+            <input type="submit" id="admin_change_password" name="Submit" value="Change Password">
+        </form>
+    </div>
+
+</body>
+
+</html>

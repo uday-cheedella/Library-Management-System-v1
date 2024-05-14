@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Section: {{ section_details.section_name }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .librarian_navbar_items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            display: inline;
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            font-size: 1.15rem;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: green;
+        }
+
+        .section_update {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .section_update h1 {
+            margin-top: 0;
+        }
+
+        .section_update label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .section_update input[type="text"] {
+            width: calc(100% - 30px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .section_update input[type="submit"] {
+            width: 48%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .section_update input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .section_update a {
+            width: 48%;
+            display: inline-block;
+            padding: 10px;
+            text-align: center;
+            background-color: #bbb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            box-sizing: border-box;
+        }
+
+        .section_update a:hover {
+            background-color: #999;
+        }
+
+        .section_update p {
+            color: red;
+            margin-top: 10px;
+        }
+
+        
+        #negative_button {
+            display: inline-block;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            background-color: rgb(247, 52, 52);
+        }
+
+        #negative_button:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+    <navbar class="librarian_navbar">
+        <ul class="librarian_navbar_items">
+            <li><a href="/librarian/dashboard">Dashboard</a></li>
+            <li><a href="/books/requests">Book Requests</a></li>
+            <li><a href="/books/issuance">Books Issued</a></li>
+            <li><a href="/librarian/stats">Stats</a></li>
+            <li><a href="/librarian/tools">Admin Tools</a></li>
+            <li><a href="/librarian/change_password">Change password</a></li>
+            <li style="float:right;"><a href="/logout">Logout</a></li>
+        </ul>
+    </navbar>
+
+    <div class="section_update">
+        <h1>Update Section: {{ section_details.section_name }}</h1>
+        <div>
+            <p>{{ error_message }}</p>
+        </div>
+        <div>
+            <p>{{ success_message }}</p>
+        </div>
+
+        <form method="post">
+            <label for="section_update_name">Name:</label>
+            <input type="text" id="section_update_name" name="section_update_name"
+                value="{{ section_details.section_name }}" required readonly>
+            <br><br>
+            <label for="section_update_description">Description:</label>
+            <input type="text" id="section_update_description" name="section_update_description"
+                value="{{ section_details.section_description }}" required>
+            <br><br>
+            <input type="submit" id="section_update_submit" name="Submit" value="Update Section">
+            <a id="negative_button"  href="/sections">Cancel Edit</a>
+        </form>
+    </div>
+</body>
+
+</html>
